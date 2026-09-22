@@ -98,8 +98,10 @@ export function ListSidebar({
 
       <ReadProgress lang={lang} ids={readIds} label={labels.read} />
 
-      <SideBanner lang={lang} />
-      <MediaBanners lang={lang} watchMoviesLabel={labels.watchMovies} />
+      <div className="flex flex-col gap-2.5">
+        <SideBanner lang={lang} />
+        <MediaBanners lang={lang} watchMoviesLabel={labels.watchMovies} />
+      </div>
     </aside>
   );
 }
