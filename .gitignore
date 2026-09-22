@@ -1,0 +1,34 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# next.js / build
+/.next/
+/out/
+/build
+next-env.d.ts
+
+# misc
+.DS_Store
+*.pem
+.vscode/
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# env
+.env*
+!.env.example
+
+# typescript
+*.tsbuildinfo
+
+# ВНИМАНИЕ: аудио (16+ ГБ) лежит в public/audio — не храним в git.
+# См. README (раздел про Git LFS), если понадобится трекать медиа.
+/public/audio/
+
+# WebP генерируются из public/images (npm run images)
+/public/img/
