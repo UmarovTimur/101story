@@ -17,6 +17,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { StickyHeader } from "@/components/sticky-header";
 import { AppPromoCompact } from "@/components/app-promo";
+import { MediaBanners } from "@/components/media-banners";
 
 const WORDS_PER_MINUTE = 160;
 
@@ -239,6 +240,7 @@ export default async function StoryPage({
             />
           </div>
           <AppPromoCompact labels={{ title: ui.apps.title, text: ui.apps.text, download: ui.apps.download }} />
+          <MediaBanners lang={lang} watchMoviesLabel={ui.watchMovies} />
         </aside>
       </div>
 

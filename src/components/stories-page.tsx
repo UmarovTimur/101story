@@ -9,6 +9,7 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import { StickyHeader } from "@/components/sticky-header";
 import { AppPromo } from "@/components/app-promo";
 import { SideBanner } from "@/components/side-banner";
+import { MediaBanners } from "@/components/media-banners";
 import { ResumeBanner } from "@/components/resume-banner";
 import { StoryCard } from "@/components/story-card";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -74,15 +75,17 @@ export async function StoriesList({ lang }: { lang: string }) {
             jumpError: ui.jumpError,
             jumpGo: ui.jumpGo,
             read: ui.readLabel,
+            watchMovies: ui.watchMovies,
           }}
         />
 
         <main className="flex min-w-0 flex-col gap-3 md:gap-[26px]">
           <AppPromo labels={ui.apps} />
 
-          {/* На md+ баннер уже есть в сайдбаре — здесь показываем только на мобильных. */}
-          <div className="md:hidden">
+          {/* На md+ баннеры уже есть в сайдбаре — здесь показываем только на мобильных. */}
+          <div className="flex flex-col gap-2.5 md:hidden">
             <SideBanner lang={lang} />
+            <MediaBanners lang={lang} watchMoviesLabel={ui.watchMovies} />
           </div>
 
           <ResumeBanner

@@ -8,6 +8,7 @@ import { useProgress } from "@/lib/progress";
 import { cn } from "@/lib/utils";
 import { JumpToNumber } from "@/components/jump-to-number";
 import { SideBanner } from "@/components/side-banner";
+import { MediaBanners } from "@/components/media-banners";
 
 export interface EraNavItem {
   key: string;
@@ -42,6 +43,7 @@ export function ListSidebar({
     jumpError: string;
     jumpGo: string;
     read: string;
+    watchMovies: string;
   };
 }) {
   const active = useActiveSection(eras.map((e) => eraSectionId(e.key)));
@@ -97,6 +99,7 @@ export function ListSidebar({
       <ReadProgress lang={lang} ids={readIds} label={labels.read} />
 
       <SideBanner lang={lang} />
+      <MediaBanners lang={lang} watchMoviesLabel={labels.watchMovies} />
     </aside>
   );
 }

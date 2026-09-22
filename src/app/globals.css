@@ -217,6 +217,26 @@
     opacity: 0.75;
   }
 
+  /*
+   * Баннеры YouTube и «фильмы» в сайдбаре: те же карточки-ссылки, но
+   * компактные и в ряд — фирменный цвет вместо лучей отличает их от
+   * .ray-banner и друг от друга с первого взгляда.
+   */
+  .media-banner--youtube {
+    background: linear-gradient(155deg, #7f1414 0%, #c81d1d 50%, #6e1010 100%);
+    color: #fff2ee;
+  }
+  .dark .media-banner--youtube {
+    background: linear-gradient(155deg, #3a0d0d 0%, #6b1414 50%, #2c0a0a 100%);
+  }
+  .media-banner--movies {
+    background: linear-gradient(155deg, #12253d 0%, #1c3f63 50%, #0f2036 100%);
+    color: #eaf2fb;
+  }
+  .dark .media-banner--movies {
+    background: linear-gradient(155deg, #0a1626 0%, #12293f 50%, #081422 100%);
+  }
+
   /* Иллюстрация как печатная вставка: низкое разрешение читается как зерно печати */
   .plate-frame::after {
     content: "";

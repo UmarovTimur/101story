@@ -35,6 +35,7 @@ export type UIStrings = {
   resumeLabel: string;
   resumeAction: string;
   apps: { title: string; text: string; download: string; screenshot: string };
+  watchMovies: string;
   done: string;
   bookmarked: string;
   allStories: string;
@@ -99,6 +100,7 @@ const dict: Record<string, UIStrings> = {
     readLabel: "O‘qilgan",
     resumeLabel: "To‘xtagan joyingiz",
     resumeAction: "Davom etish",
+    watchMovies: "Filmlarni ko‘rish",
     apps: {
       title: "Muqaddas Kitob hikoyalari",
       text: "100 dan ziyod Muqaddas Kitob hikoyalari to‘plangan. Hikoyalarni o‘qing va tinglang",
@@ -183,6 +185,7 @@ dict.ru = {
   readLabel: "Прочитано",
   resumeLabel: "Вы остановились здесь",
   resumeAction: "Продолжить",
+  watchMovies: "Смотреть фильмы",
   apps: {
     title: "Библейские истории",
     text: "Более 100 библейских историй. Читайте и слушайте истории.",
@@ -266,6 +269,7 @@ dict.az = {
   readLabel: "Oxunub",
   resumeLabel: "Dayandığınız yer",
   resumeAction: "Davam et",
+  watchMovies: "Filmlərə bax",
   apps: {
     title: "Müqəddəs Kitabdan Hekayələr",
     text: "100-dən çox Müqəddəs Kitab hekayələri. Hekayələri oxuyun və dinləyin.",
@@ -349,6 +353,7 @@ dict.kk = {
   readLabel: "Оқылды",
   resumeLabel: "Тоқтаған жеріңіз",
   resumeAction: "Жалғастыру",
+  watchMovies: "Фильмдерді көру",
   apps: {
     title: "Киелі Жазба әңгімелері",
     text: "100-ден аса Киелі Жазба әңгімелерін оқып, тыңдаңыз.",
@@ -432,6 +437,7 @@ dict.ky = {
   readLabel: "Окулду",
   resumeLabel: "Токтогон жериңиз",
   resumeAction: "Улантуу",
+  watchMovies: "Тасмаларды көрүү",
   apps: {
     title: "Ыйык Китептеги Баяндар",
     text: "Ыйык Китептеги 100 Дөн Ашуун Баян. Баяндарды Окуңуз Жана Угуңуз.",
@@ -515,6 +521,7 @@ dict.hz = {
   readLabel: "Хонда шуд",
   resumeLabel: "Ҷои қатъшуда",
   resumeAction: "Идома додан",
+  watchMovies: "Тамошои филмҳо",
   apps: {
     title: "Ҳикояҳо аз Библия",
     text: "Зиёда аз 100 ҳикояҳои Китоби Муқаддас. Ҳикояҳоро хонед ва гӯш кунед",
@@ -598,6 +605,7 @@ dict.uk = {
   readLabel: "Прочитано",
   resumeLabel: "Ви зупинилися тут",
   resumeAction: "Продовжити",
+  watchMovies: "Дивитися фільми",
   apps: {
     title: "Біблійні історії",
     text: "Понад 100 біблійних історій. Читайте та слухайте історії.",
@@ -681,6 +689,7 @@ dict.hy = {
   readLabel: "Կարդացված",
   resumeLabel: "Այստեղ եք կանգնել",
   resumeAction: "Շարունակել",
+  watchMovies: "Դիտել ֆիլմերը",
   apps: {
     title: "Աստվածաշնչային Պատումներ",
     text: "Ավելի քան 100 Աստվածաշնչային պատումներ: Կարդացեք և լսեք պատմութոււնները։",
@@ -764,6 +773,7 @@ dict.ka = {
   readLabel: "წაკითხული",
   resumeLabel: "აქ გაჩერდით",
   resumeAction: "გაგრძელება",
+  watchMovies: "ფილმების ყურება",
   apps: {
     title: "ბიბლიური ისტორიები",
     text: "100-ზე მეტი ბიბლიური ისტორია. წაიკითხეთ და მოუსმინეთ ისტორიებს",
@@ -847,6 +857,7 @@ dict.tr = {
   readLabel: "Okundu",
   resumeLabel: "Kaldığınız yer",
   resumeAction: "Devam et",
+  watchMovies: "Filmleri izle",
   apps: {
     // В приложении здесь опечатка в апострофе («Kitapt’an») — пишем правильно.
     title: "Kutsal Kitap’tan Hikayeler",
@@ -931,6 +942,7 @@ dict.de = {
   readLabel: "Gelesen",
   resumeLabel: "Hier aufgehört",
   resumeAction: "Weiter",
+  watchMovies: "Filme ansehen",
   apps: {
     title: "Geschichten aus der Bibel",
     text: "Über 100 biblische Geschichten zum Hören und Lesen.",
@@ -1014,6 +1026,7 @@ dict.es = {
   readLabel: "Leído",
   resumeLabel: "Se quedó aquí",
   resumeAction: "Continuar",
+  watchMovies: "Ver películas",
   apps: {
     title: "Las historias de la Biblia",
     text: "Más de 100 historias bíblicas. Lee y escucha las historias.",
@@ -1097,6 +1110,7 @@ dict.fa = {
   readLabel: "خوانده شد",
   resumeLabel: "اینجا متوقف شدید",
   resumeAction: "ادامه",
+  watchMovies: "تماشای فیلم‌ها",
   apps: {
     title: "داستان های کتاب مقدس",
     text: "بیش از ۱۰۰ داستان کتاب مقدس. داستان ها را بخوانید و گوش کنید.",
@@ -1180,6 +1194,7 @@ dict.ro = {
   readLabel: "Citit",
   resumeLabel: "V-ați oprit aici",
   resumeAction: "Continuă",
+  watchMovies: "Vezi filme",
   apps: {
     title: "Istorii biblice",
     text: "Mai mult de 100 de istorii biblice. Citiți și ascultați istorioarele.",
@@ -1263,6 +1278,7 @@ dict.ms = {
   readLabel: "Hate xwendin",
   resumeLabel: "Li vir sekinî bû",
   resumeAction: "Berdewam",
+  watchMovies: "Fîlman temaşe bike",
   apps: {
     title: "Çîrokên Pirtûka Pîroz",
     text: "Ji 100î zêdetir çîrokên Pirtûka Pîroz. Çîrokan bixwînin û li wan guhdar bikin",
@@ -1346,6 +1362,7 @@ dict.mn = {
   readLabel: "Уншсан",
   resumeLabel: "Та энд зогссон",
   resumeAction: "Үргэлжлүүлэх",
+  watchMovies: "Кино үзэх",
   apps: {
     title: "Библийн түүхүүд",
     text: "100 гаруй Библийн түүх багтсан. Уншаарай бас сонсоорой.",
@@ -1429,6 +1446,7 @@ dict.eu = {
   readLabel: "Аахтылла",
   resumeLabel: "Манна тохтообутуҥ",
   resumeAction: "Салгыы",
+  watchMovies: "Кинону көрүү",
   apps: {
     title: "Библияттан кэпсээннэр",
     text: "Сүүстэн тахса библияттан кэпсээннэр. Аах уонна иһит.",
@@ -1512,6 +1530,7 @@ dict.ty = {
   readLabel: "Номчаан",
   resumeLabel: "Мында дүжен",
   resumeAction: "Уламчылаар",
+  watchMovies: "Кинолар көрүү",
   apps: {
     title: "Библияден төөгүлер",
     text: "Библиядан 100 ажыг төөгүлер. Төөгүлерни номчуңар баз дыңнаңар",
@@ -1595,6 +1614,7 @@ dict.ba = {
   readLabel: "Оқулди",
   resumeLabel: "Бу йәрдә тохтидиңиз",
   resumeAction: "Давамлаштуруш",
+  watchMovies: "Киноларни көрүш",
   apps: {
     title: "Муқәддәс Китап вақийәлири",
     text: "100-дин артуқ Муқәддәс Китап вақийәлири. Бу вақийәләрни оқуңлар һәм тиңшаңлар.",
@@ -1678,6 +1698,7 @@ dict.kr = {
   readLabel: "Умшгдв",
   resumeLabel: "Эн бәәрнт зогслвт",
   resumeAction: "Yргэлҗлүлх",
+  watchMovies: "Кино үзх",
   apps: {
     title: "Библин тууҗс",
     text: "Эн зуунас даву Библин тууҗ бәәнә. Соңстн болн умштн!",
@@ -1761,6 +1782,7 @@ dict.tl = {
   readLabel: "Оқылды",
   resumeLabel: "Сиз усы жерде тоқтадыңыз",
   resumeAction: "Даўам етиў",
+  watchMovies: "Киноларды көриў",
   apps: {
     title: "Мухаддес Китап ўақыялары",
     text: "100-ден аслам Мухаддес Китап ўақыялары. Ўақыяларды оқың ҳәм тыңлаң.",
@@ -1844,6 +1866,7 @@ dict.gv = {
   readLabel: "Хонда шуд",
   resumeLabel: "Дар ин ҷо истодед",
   resumeAction: "Давом додан",
+  watchMovies: "Тамошои филм",
   apps: {
     title: "Китоби Муқаддас йикойаен",
     text: "Китоби Муқаддас йикойаен аз сад ду̊на̄га мис зийотди. Дев йикойаен х̇ойетат ниғу̊ɣет.",
@@ -1927,6 +1950,7 @@ dict.gl = {
   readLabel: "Jeläst",
   resumeLabel: "Hia opjehoolt",
   resumeAction: "Wieda",
+  watchMovies: "Film kjikje",
   apps: {
     // В приложении интерфейс для Plautdietsch идёт на немецком — берём как есть.
     title: "Bibelgeschichten für die ganze Familie",
