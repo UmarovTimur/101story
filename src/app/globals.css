@@ -54,8 +54,10 @@
     --secondary-foreground: 45 6% 87%;
     --muted: 0 0% 20%;
     --muted-foreground: 45 3% 54%;
-    --accent: 357 71% 61%;
-    --accent-foreground: 0 0% 8%;
+    /* Акцент — тот же самый красный, что в светлой теме (не адаптируем под
+       тему): на затемнённом фоне высветленный вариант выглядел размыто. */
+    --accent: 357 71% 27%;
+    --accent-foreground: 45 60% 98%;
     --destructive: 359 69% 69%;
     --destructive-foreground: 0 0% 8%;
     --border: 0 1% 21%;

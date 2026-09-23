@@ -7,13 +7,26 @@ import { Languages as LanguagesIcon, Check, Globe } from "lucide-react";
 import type { Language } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { customFlags } from "@/lib/custom-flags";
+import { useDropUp } from "@/hooks/use-drop-up";
 
-/** Флаг языка, если для него однозначно определена страна, иначе — нейтральный глобус. */
-function LanguageFlag({ flag }: { flag?: string }) {
+/**
+ * Флаг языка: юникод-эмодзи страны, если она есть; иначе — свой SVG для
+ * языков без государства (см. custom-flags.tsx); иначе — нейтральный глобус.
+ */
+function LanguageFlag({ code, flag }: { code: string; flag?: string }) {
   if (flag) {
     return (
       <span aria-hidden className="text-[15px] leading-none">
         {flag}
+      </span>
+    );
+  }
+  const custom = customFlags[code];
+  if (custom) {
+    return (
+      <span aria-hidden className="inline-block size-4 flex-none overflow-hidden rounded-[3px]">
+        {custom}
       </span>
     );
   }
@@ -35,6 +48,8 @@ export function LanguageSwitcher({
 }) {
   const [open, setOpen] = React.useState(false);
   const containerRef = React.useRef<HTMLDivElement>(null);
+  const menuRef = React.useRef<HTMLDivElement>(null);
+  const dropUp = useDropUp(open, containerRef, menuRef);
   const pathname = usePathname();
 
   // Пока меню открыто — блокируем скролл страницы под ним (языков много,
@@ -100,13 +115,19 @@ export function LanguageSwitcher({
           <LanguagesIcon className="size-4" aria-hidden />
         </button>
       ) : (
-        <Button variant="outline" size="sm" onClick={() => setOpen((v) => !v)}>
-          <LanguageFlag flag={languages.find((l) => l.code === current)?.flag} />
+        <Button variant="outline" size="sm" className="rounded-full" onClick={() => setOpen((v) => !v)}>
+          <LanguageFlag code={current} flag={languages.find((l) => l.code === current)?.flag} />
           {languages.find((l) => l.code === current)?.name}
         </Button>
       )}
       {open && (
-        <div className="thin-scrollbar absolute end-0 z-popover mt-2 max-h-[min(60vh,420px)] w-44 overflow-y-auto overscroll-contain rounded-2xl border bg-card shadow-md md:rounded-md">
+        <div
+          ref={menuRef}
+          className={cn(
+            "thin-scrollbar absolute end-0 z-popover max-h-[min(60vh,420px)] w-44 overflow-y-auto overscroll-contain rounded-2xl border bg-card shadow-md md:rounded-md",
+            dropUp ? "bottom-full mb-2" : "mt-2"
+          )}
+        >
           {languages.map((l) => (
             <Link
               key={l.code}
@@ -117,7 +138,7 @@ export function LanguageSwitcher({
                 l.code === current && "font-medium"
               )}
             >
-              <LanguageFlag flag={l.flag} />
+              <LanguageFlag code={l.code} flag={l.flag} />
               <span className="flex-1 truncate">{l.name}</span>
               {l.code === current && <Check className="size-4 flex-none" />}
             </Link>

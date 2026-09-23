@@ -17,10 +17,11 @@ import { AudioDock, AudioPanel, StoryAudioProvider, StoryText } from "@/componen
 import { BookmarkButton, ReadMarker } from "@/components/progress-marks";
 import { TextSizeToggle } from "@/components/text-size-toggle";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { LanguageSwitcher } from "@/components/language-switcher";
 import { StickyHeader } from "@/components/sticky-header";
 import { AppPromoCompact } from "@/components/app-promo";
 import { MediaBanners } from "@/components/media-banners";
+import { StoryNumberJump } from "@/components/story-number-jump";
+import { Footer } from "@/components/footer";
 import { JsonLd } from "@/components/json-ld";
 
 const WORDS_PER_MINUTE = 160;
@@ -77,7 +78,6 @@ export default async function StoryPage({
   const next: Story | undefined = stories[idx + 1];
   const lastNumber = stories[stories.length - 1].number;
   const numberLabel = (s: Story) => (s.number > 0 ? pad3(s.number) : ui.preface);
-
   const era = eraOf(story.number);
   const eraStories = era ? stories.filter((s) => s.number >= era.from && s.number <= era.to) : [];
   const start = Math.max(0, eraStories.findIndex((s) => s.id === story.id) - 1);
@@ -151,21 +151,24 @@ export default async function StoryPage({
             <ArrowLeft className="size-4 rtl:rotate-180" aria-hidden />
             <span className="text-optical hidden md:inline">{ui.allStories}</span>
           </Link>
-          <span className="truncate tabular-nums text-xs md:text-[12.5px]">
-            {numberLabel(story)} / {pad3(lastNumber)}
-            {era && <span className="hidden md:inline"> · {ui.eras[era.key].title}</span>}
-          </span>
-          <div className="flex flex-none items-center gap-0.5">
-            {languages.length > 1 && (
-              <LanguageSwitcher languages={languages} current={lang} />
-            )}
-            <TextSizeToggle label={ui.textSize} />
-            <ThemeToggle labels={ui.theme} variant="plain" />
+          <div className="flex min-w-0 flex-1 items-center justify-end">
+            <StoryNumberJump
+              lang={lang}
+              label={story.title}
+              shortLabel={`${numberLabel(story)} / ${pad3(lastNumber)}`}
+              current={story.number}
+              items={stories.map((s) => ({ number: s.number, title: s.title }))}
+              className="text-[13px] md:text-sm"
+            />
+          </div>
+          <div className="flex flex-none items-center gap-2">
+            <TextSizeToggle label={ui.textSize} className="size-10 rounded-full border border-input px-0" />
+            <ThemeToggle labels={ui.theme} variant="icon" className="size-10" />
           </div>
         </div>
       </StickyHeader>
 
-      <div className="mx-auto grid max-w-[1120px] gap-14 px-[18px] pb-32 pt-[18px] md:px-12 md:pt-[52px] lg:grid-cols-[minmax(0,1fr)_240px]">
+      <div className="mx-auto grid max-w-[1120px] gap-14 px-[18px] pb-10 pt-[var(--bar-gap)] md:px-12 md:pt-[52px] lg:grid-cols-[minmax(0,1fr)_240px]">
         <article className="mx-auto flex w-full min-w-0 max-w-[680px] flex-col gap-4 md:gap-8 lg:mx-0">
           <StoryPlate
             src={imageSrc(story)}
@@ -178,7 +181,6 @@ export default async function StoryPage({
           />
 
           <div className="flex flex-col gap-1.5 md:gap-2.5">
-            <span className="tabular-nums text-xs text-accent md:text-[13px]">{numberLabel(story)}</span>
             <h1 className="font-display text-[29px] font-medium leading-[1.15] [text-wrap:balance] md:text-[46px] md:leading-[1.08] md:tracking-[-.01em]">
               {story.title}
             </h1>
@@ -320,6 +322,8 @@ export default async function StoryPage({
           <MediaBanners lang={lang} watchMoviesLabel={ui.watchMovies} />
         </aside>
       </div>
+
+      <Footer languages={languages} current={lang} className="pb-32" />
 
       <AudioDock title={fullTitle} image={imageSrc(story)} />
     </StoryAudioProvider>

@@ -5,13 +5,13 @@ import { audioDuration } from "@/lib/audio-duration";
 import { eraSectionId, eras } from "@/lib/eras";
 import { t, tr } from "@/lib/i18n";
 import { EraChips, ListSidebar } from "@/components/list-navigation";
-import { LanguageSwitcher } from "@/components/language-switcher";
 import { StickyHeader } from "@/components/sticky-header";
 import { AppPromo } from "@/components/app-promo";
 import { SideBanner } from "@/components/side-banner";
 import { MediaBanners } from "@/components/media-banners";
 import { ResumeBanner } from "@/components/resume-banner";
 import { StoryCard } from "@/components/story-card";
+import { Footer } from "@/components/footer";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { JsonLd } from "@/components/json-ld";
 import { getLanguage } from "@/lib/languages";
@@ -77,16 +77,13 @@ export async function StoriesList({ lang }: { lang: string }) {
               {tr(ui.storyCount, { n: numbered.length })}
             </span>
           </Link>
-          <div className="flex flex-none items-center gap-2.5">
-            {languages.length > 1 && <LanguageSwitcher languages={languages} current={lang} />}
-            <ThemeToggle labels={ui.theme} variant="icon" />
-          </div>
+          <ThemeToggle labels={ui.theme} variant="icon" className="size-10 flex-none" />
         </div>
       </StickyHeader>
 
       <EraChips eras={navItems} label={ui.erasLabel} />
 
-      <div className="mx-auto grid max-w-[1280px] gap-11 px-[18px] pb-28 pt-3.5 md:grid-cols-[224px_minmax(0,1fr)] md:px-12 md:pb-[52px] md:pt-11">
+      <div className="mx-auto grid max-w-[1280px] gap-11 px-[18px] pb-10 pt-3.5 md:grid-cols-[224px_minmax(0,1fr)] md:px-12 md:pb-[52px] md:pt-11">
         <ListSidebar
           lang={lang}
           eras={navItems}
@@ -170,6 +167,8 @@ export async function StoriesList({ lang }: { lang: string }) {
           ))}
         </main>
       </div>
+
+      <Footer languages={languages} current={lang} />
     </>
   );
 }

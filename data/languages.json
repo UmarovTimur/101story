@@ -146,7 +146,8 @@
     "code": "sgh",
     "name": "Шугнон-Помир",
     "englishName": "Shughni",
-    "dir": "ltr"
+    "dir": "ltr",
+    "flag": "🇹🇯"
   },
   {
     "code": "pdt",
