@@ -106,7 +106,7 @@ export function LanguageSwitcher({
         </Button>
       )}
       {open && (
-        <div className="thin-scrollbar absolute end-0 z-popover mt-2 max-h-[min(60vh,420px)] w-44 overflow-y-auto overscroll-contain rounded-md border bg-card shadow-md">
+        <div className="thin-scrollbar absolute end-0 z-popover mt-2 max-h-[min(60vh,420px)] w-44 overflow-y-auto overscroll-contain rounded-2xl border bg-card shadow-md md:rounded-md">
           {languages.map((l) => (
             <Link
               key={l.code}

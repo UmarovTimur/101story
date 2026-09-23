@@ -142,8 +142,8 @@ export default async function StoryPage({
       labels={ui.player}
     >
       <JsonLd data={jsonLd} />
-      <StickyHeader className="border-b bg-card">
-        <div className="mx-auto flex h-[52px] max-w-[1280px] items-center justify-between gap-3 px-[18px] text-[13px] text-muted-foreground md:h-14 md:px-12 md:text-sm">
+      <StickyHeader>
+        <div className="mx-auto flex h-full max-w-[1280px] items-center justify-between gap-3 ps-5 pe-2.5 text-[13px] text-muted-foreground md:h-14 md:px-12 md:text-sm">
           <Link
             href={`/${lang}/`}
             className="inline-flex items-center gap-1.5 rounded-md py-1.5 transition-colors hover:text-foreground"
@@ -197,7 +197,7 @@ export default async function StoryPage({
           {story.questions.length > 0 && (
             <section
               aria-labelledby="questions-title"
-              className="flex flex-col gap-4 rounded-lg border bg-card px-[18px] py-5 md:px-7 md:py-[26px]"
+              className="flex flex-col gap-4 rounded-card border bg-card px-[18px] py-5 md:rounded-lg md:px-7 md:py-[26px]"
             >
               <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                 <h2 id="questions-title" className="font-display text-xl md:text-2xl">
@@ -226,15 +226,15 @@ export default async function StoryPage({
             {prev ? (
               <Link
                 href={`/${lang}/${prev.number}/`}
-                className="flex flex-row-reverse items-start justify-between gap-4 rounded-lg border bg-card p-3 transition-shadow hover:shadow-plate md:gap-3.5 md:p-3"
+                className="flex flex-row-reverse items-start justify-between gap-4 rounded-card border bg-card p-3 transition-shadow hover:shadow-plate md:gap-3.5 md:rounded-lg md:p-3"
               >
                 <StoryPlate
                   src={imageSrc(prev)}
                   alt={prev.title}
                   title={prev.title}
                   sizes="84px"
-                  className="w-[56px] flex-none rounded-md md:w-[72px]"
-                  frameClassName="rounded-sm"
+                  className="w-[56px] flex-none rounded-[8px] md:w-[72px] md:rounded-md"
+                  frameClassName="rounded-[7px] md:rounded-sm"
                 />
                 <span className="flex min-w-0 flex-col gap-1">
                   <span className="inline-flex items-center gap-1 tabular-nums text-[11.5px] text-muted-foreground">
@@ -253,15 +253,15 @@ export default async function StoryPage({
             {next && (
               <Link
                 href={`/${lang}/${next.number}/`}
-                className="flex items-start justify-between gap-4 rounded-lg border bg-card p-3 text-end transition-shadow hover:shadow-plate md:gap-3.5 md:p-3"
+                className="flex items-start justify-between gap-4 rounded-card border bg-card p-3 text-end transition-shadow hover:shadow-plate md:gap-3.5 md:rounded-lg md:p-3"
               >
                 <StoryPlate
                   src={imageSrc(next)}
                   alt={next.title}
                   title={next.title}
                   sizes="84px"
-                  className="w-[56px] flex-none rounded-md md:w-[72px]"
-                  frameClassName="rounded-sm"
+                  className="w-[56px] flex-none rounded-[8px] md:w-[72px] md:rounded-md"
+                  frameClassName="rounded-[7px] md:rounded-sm"
                 />
                 <span className="flex min-w-0 flex-col items-end gap-1">
                   <span className="inline-flex items-center gap-1 tabular-nums text-[11.5px] text-muted-foreground">

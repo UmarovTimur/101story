@@ -83,7 +83,7 @@ export function AppPromo({
       aria-labelledby="app-promo-title"
       /* isolate — чтобы z-10/20/30 у телефонов оставались внутренним делом
          баннера и не спорили с прилипающими полосами страницы. */
-      className="app-promo relative isolate grid overflow-hidden rounded-2xl lg:h-[216px] lg:grid-cols-[minmax(0,1fr)_236px_minmax(0,1fr)] xl:grid-cols-[minmax(0,1fr)_260px_minmax(0,1fr)]"
+      className="app-promo relative isolate grid overflow-hidden rounded-card md:rounded-2xl lg:h-[216px] lg:grid-cols-[minmax(0,1fr)_236px_minmax(0,1fr)] xl:grid-cols-[minmax(0,1fr)_260px_minmax(0,1fr)]"
     >
       <div className="flex flex-col items-center justify-center gap-2 px-5 pt-6 text-center md:pt-8 lg:px-6 lg:pt-0">
         <h2 id="app-promo-title" className="font-display text-[28px] font-bold leading-[1.05] md:text-[34px]">
@@ -116,7 +116,7 @@ export function AppPromoCompact({
   labels: { title: string; text: string; download: string };
 }) {
   return (
-    <section aria-labelledby="app-promo-compact-title" className="app-promo flex flex-col gap-3 rounded-xl p-4">
+    <section aria-labelledby="app-promo-compact-title" className="app-promo flex flex-col gap-3 rounded-card p-4 md:rounded-xl">
       <div className="flex flex-col gap-1.5">
         <p id="app-promo-compact-title" className="font-display text-[19px] font-bold leading-[1.15]">
           {labels.title}

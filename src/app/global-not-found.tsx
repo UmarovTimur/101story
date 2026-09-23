@@ -39,7 +39,7 @@ export default async function GlobalNotFound() {
       </header>
 
       <main className="mx-auto max-w-[560px] px-[18px] py-12 md:py-20">
-        <div className="flex flex-col items-start gap-[18px] rounded-lg border bg-card px-6 py-8 md:px-9 md:py-10">
+        <div className="flex flex-col items-start gap-[18px] rounded-card border bg-card md:rounded-lg px-6 py-8 md:px-9 md:py-10">
           <span className="tabular-nums text-[13px] tracking-[.12em] text-muted-foreground">
             {ui.notFoundKicker}
           </span>

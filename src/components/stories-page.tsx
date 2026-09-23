@@ -67,8 +67,8 @@ export async function StoriesList({ lang }: { lang: string }) {
   return (
     <>
       <JsonLd data={jsonLd} />
-      <StickyHeader className="border-b bg-card">
-        <div className="mx-auto flex h-[52px] max-w-[1280px] items-center justify-between gap-4 px-[18px] md:h-14 md:px-12">
+      <StickyHeader>
+        <div className="mx-auto flex h-full max-w-[1280px] items-center justify-between gap-4 ps-5 pe-2.5 md:h-14 md:px-12">
           <Link href={`/${lang}/`} className="relative top-0.5 flex min-w-0 items-baseline gap-3.5 rounded-md">
             <h1 className="truncate font-display text-[17px] font-medium md:text-[21px]">
               {ui.siteTitle}
@@ -86,7 +86,7 @@ export async function StoriesList({ lang }: { lang: string }) {
 
       <EraChips eras={navItems} label={ui.erasLabel} />
 
-      <div className="mx-auto grid max-w-[1280px] gap-11 px-[18px] pb-10 pt-3.5 md:grid-cols-[224px_minmax(0,1fr)] md:px-12 md:pb-[52px] md:pt-11">
+      <div className="mx-auto grid max-w-[1280px] gap-11 px-[18px] pb-28 pt-3.5 md:grid-cols-[224px_minmax(0,1fr)] md:px-12 md:pb-[52px] md:pt-11">
         <ListSidebar
           lang={lang}
           eras={navItems}
@@ -129,7 +129,7 @@ export async function StoriesList({ lang }: { lang: string }) {
           {preface && (
             <Link
               href={`/${lang}/${preface.number}/`}
-              className="flex items-baseline gap-3 rounded-lg border border-dashed border-input bg-card/60 px-4 py-3 transition-colors hover:bg-card"
+              className="flex items-baseline gap-3 rounded-card border border-dashed md:rounded-lg border-input bg-card/60 px-4 py-3 transition-colors hover:bg-card"
             >
               <span className="text-optical relative top-[0.25em] flex-none text-[11px] uppercase tracking-[.14em] text-muted-foreground">
                 {ui.preface}

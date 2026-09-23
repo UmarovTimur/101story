@@ -27,13 +27,13 @@ function MediaBanner({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`${className} group relative isolate flex items-center gap-2.5 rounded-xl px-3.5 shadow-[0_1px_2px_rgb(0_0_0/.12)] transition-shadow hover:shadow-[0_6px_18px_-6px_rgb(0_0_0/.5)] ${
+      className={`${className} group relative isolate flex items-center gap-2.5 rounded-card px-4 md:rounded-xl md:px-3.5 shadow-[0_1px_2px_rgb(0_0_0/.12)] transition-shadow hover:shadow-[0_6px_18px_-6px_rgb(0_0_0/.5)] ${
         fullWidth ? "py-4" : "py-3"
       }`}
     >
       <ArrowUpRight
         className={`absolute flex-none opacity-70 transition-transform group-hover:translate-x-px group-hover:-translate-y-px rtl:-scale-x-100 ${
-          fullWidth ? "end-3 top-3 size-4" : "end-2.5 top-2.5 size-3.5"
+          fullWidth ? "end-3.5 top-3.5 size-4 md:end-3 md:top-3" : "end-3 top-3 size-3.5 md:end-2.5 md:top-2.5"
         }`}
         aria-hidden
       />

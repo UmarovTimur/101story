@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 const config: Config = {
   darkMode: ["class"],
@@ -73,12 +74,15 @@ const config: Config = {
           edge: "hsl(var(--plate-edge))",
         },
         track: "hsl(var(--track))",
+        tint: "hsl(var(--tint))",
         ink: "hsl(var(--ink))",
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 6px)",
+        /* Карточки и баннеры на мобайле — в пару к плавающим панелям (см. globals.css) */
+        card: "var(--radius-card)",
       },
       boxShadow: {
         paper: "0 1px 0 hsl(28 30% 30% / .08)",
@@ -101,7 +105,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 };
 
 export default config;

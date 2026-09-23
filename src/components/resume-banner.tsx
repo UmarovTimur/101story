@@ -57,7 +57,7 @@ export function ResumeBanner({
 
       <Link
         href={href}
-        className="flex items-center gap-3 rounded-lg border border-l-[3px] border-l-accent bg-card px-3 py-2.5 md:hidden rtl:border-l rtl:border-r-[3px] rtl:border-r-accent"
+        className="flex items-center gap-3 rounded-card border bg-card py-2.5 pe-3 ps-4 md:hidden"
       >
         <span className="flex min-w-0 flex-1 flex-col gap-0.5">
           <span className="text-[10.5px] uppercase tracking-[.14em] text-muted-foreground">

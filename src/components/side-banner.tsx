@@ -15,7 +15,7 @@ export function SideBanner({ lang }: { lang: string }) {
       href={banner.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="ray-banner group relative isolate flex flex-col gap-1.5 overflow-hidden rounded-xl p-4 shadow-[0_1px_2px_rgb(0_0_0/.12)] transition-shadow hover:shadow-[0_6px_18px_-6px_rgb(20_10_40/.5)]"
+      className="ray-banner group relative isolate flex flex-col gap-1.5 overflow-hidden rounded-card p-4 md:rounded-xl shadow-[0_1px_2px_rgb(0_0_0/.12)] transition-shadow hover:shadow-[0_6px_18px_-6px_rgb(20_10_40/.5)]"
     >
       <span aria-hidden className="ray-banner__rays" />
 

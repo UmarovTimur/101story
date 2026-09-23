@@ -25,7 +25,7 @@ export function StoryCard({
   return (
     <Link
       href={`/${lang}/${story.number}/`}
-      className="group flex h-full min-h-[92px] items-stretch overflow-hidden rounded-lg border bg-card shadow-paper transition-shadow hover:shadow-plate sm:min-h-0 sm:flex-col sm:gap-3"
+      className="group flex h-full min-h-[92px] items-stretch overflow-hidden rounded-card border bg-card shadow-paper transition-shadow hover:shadow-plate sm:min-h-0 sm:flex-col sm:gap-3 md:rounded-lg"
     >
       <StoryPlate
         src={imageSrc(story)}
@@ -35,7 +35,9 @@ export function StoryCard({
         badge={pad3(story.number)}
         className="w-[132px] flex-none sm:w-auto"
         frameClassName="aspect-auto h-full rounded-none border-0 sm:aspect-video sm:h-auto"
-        badgeClassName="translate-x-1.5 translate-y-1.5 px-1.5 py-0.5 text-[11px] rtl:-translate-x-1.5 sm:translate-x-2 sm:translate-y-2 sm:px-[7px] sm:py-[3px] sm:text-xs sm:rtl:-translate-x-2"
+        // На мобайле угол карточки скруглён сильно (rounded-card) — номер
+        // отодвинут от края и сам стал пилюлей, концентрично углу.
+        badgeClassName="translate-x-2.5 translate-y-2.5 rounded-full px-2 py-0.5 text-[11px] rtl:-translate-x-2.5 sm:px-2.5 sm:py-[3px] sm:text-xs md:translate-x-2 md:translate-y-2 md:rounded md:px-[7px] md:rtl:-translate-x-2"
       />
       <div className="flex min-w-0 flex-1 flex-col justify-center gap-[3px] px-3 py-2.5 sm:justify-start sm:gap-[5px] sm:px-4 sm:pb-4 sm:pt-0">
         <h3 className="font-display text-[17px] font-medium leading-tight [text-wrap:pretty] sm:text-xl">

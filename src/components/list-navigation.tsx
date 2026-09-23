@@ -133,51 +133,59 @@ function ReadProgress({ lang, ids, label }: { lang: string; ids: string[]; label
   );
 }
 
-/** Полоса эпох-«чипов» под шапкой (мобайл), прилипает при прокрутке. */
+/**
+ * Эпохи-«чипы» на мобайле: плавающая пилюля у нижнего края экрана — того же
+ * вида и высоты, что шапка и мини-плеер (.floating-bar). Как и они, уезжает
+ * при прокрутке вниз и возвращается при прокрутке вверх.
+ */
 export function EraChips({ eras, label }: { eras: EraNavItem[]; label: string }) {
   const active = useActiveSection(eras.map((e) => eraSectionId(e.key)));
   const rowRef = React.useRef<HTMLUListElement>(null);
-  // Тот же хук, что и у шапки: пока она видна, стоим под ней (52px), когда
-  // она уезжает вверх — занимаем её место, чтобы не висела пустая щель.
-  const headerHidden = useScrollHide();
+  const hidden = useScrollHide();
 
   React.useEffect(() => {
     const row = rowRef.current;
     const chip = row?.querySelector<HTMLElement>(`[data-section="${active}"]`);
-    if (row && chip) row.scrollTo({ left: chip.offsetLeft - 18, behavior: "smooth" });
+    if (row && chip) row.scrollTo({ left: chip.offsetLeft - 10, behavior: "smooth" });
   }, [active]);
 
   return (
     <nav
       aria-label={label}
       className={cn(
-        "sticky z-sticky border-b bg-background/95 backdrop-blur transition-[top] duration-200 md:hidden",
-        headerHidden ? "top-0" : "top-[52px]"
+        "pointer-events-none fixed inset-x-0 bottom-0 z-dock px-[--bar-gap-x] pb-[max(var(--bar-gap),env(safe-area-inset-bottom))] transition-transform duration-200 md:hidden",
+        hidden ? "translate-y-full" : "translate-y-0"
       )}
     >
-      <ul ref={rowRef} className="no-scrollbar relative flex gap-2 overflow-x-auto px-[18px] py-3 text-[13px]">
-        {eras.map((e) => {
-          const id = eraSectionId(e.key);
-          const on = active === id;
-          return (
-            <li key={e.key} className="flex-none">
-              <a
-                href={`#${id}`}
-                data-section={id}
-                aria-current={on ? "location" : undefined}
-                className={cn(
-                  "block whitespace-nowrap rounded-full border px-3 py-[7px] transition-colors",
-                  on
-                    ? "border-accent bg-accent text-accent-foreground"
-                    : "border-input text-foreground/75"
-                )}
-              >
-                <span className="text-optical">{e.short}</span>
-              </a>
-            </li>
-          );
-        })}
-      </ul>
+      <div className="floating-bar pointer-events-auto overflow-hidden">
+        {/* Края ленты растворяются — видно, что чипы прокручиваются вбок. */}
+        <ul
+          ref={rowRef}
+          className="no-scrollbar relative flex h-full items-center gap-2 overflow-x-auto px-2.5 text-[13px] [mask-image:linear-gradient(to_right,transparent,#000_10px,#000_calc(100%-10px),transparent)]"
+        >
+          {eras.map((e) => {
+            const id = eraSectionId(e.key);
+            const on = active === id;
+            return (
+              <li key={e.key} className="flex-none">
+                <a
+                  href={`#${id}`}
+                  data-section={id}
+                  aria-current={on ? "location" : undefined}
+                  className={cn(
+                    "block whitespace-nowrap rounded-full border px-3.5 py-[9px] transition-colors",
+                    on
+                      ? "border-accent bg-accent text-accent-foreground"
+                      : "border-input text-foreground/75"
+                  )}
+                >
+                  <span className="text-optical">{e.short}</span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </nav>
   );
 }

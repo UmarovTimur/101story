@@ -15,6 +15,8 @@ import { cn } from "@/lib/utils";
 
 const RATES = [0.75, 1, 1.25, 1.5];
 const SAVE_EVERY_SEC = 5;
+/** сдвиг пальца (px), после которого жест считается перемоткой, а не тапом */
+const SCRUB_SLOP = 8;
 
 interface StoryAudioState {
   playing: boolean;
@@ -273,7 +275,11 @@ export function AudioPanel() {
   );
 }
 
-/** Мини-панель внизу экрана. */
+/**
+ * Мини-панель внизу экрана. На мобайле — плавающая «пилюля» той же высоты
+ * и формы, что и шапка (.floating-bar), прогресс — бледная заливка фона
+ * цветом акцента. На md+ — карточка с превью и прогрессом сверху.
+ */
 export function AudioDock({ title, image }: { title: string; image: string }) {
   const { docked } = useStoryAudio();
   const hidden = useScrollHide();
@@ -283,25 +289,27 @@ export function AudioDock({ title, image }: { title: string; image: string }) {
       role="region"
       aria-label={title}
       className={cn(
-        "fixed inset-x-0 bottom-0 z-dock transition-transform duration-200 animate-in fade-in slide-in-from-bottom-4",
+        "pointer-events-none fixed inset-x-0 bottom-0 z-dock px-[--bar-gap-x] pb-[max(var(--bar-gap),env(safe-area-inset-bottom))] transition-transform duration-200 animate-in fade-in slide-in-from-bottom-4 md:px-0 md:pb-3",
         hidden ? "translate-y-full" : "translate-y-0",
         !docked && "md:hidden"
       )}
     >
-      <div className="mx-auto max-w-[720px] overflow-hidden border-t border-input bg-card pb-[env(safe-area-inset-bottom)] shadow-dock md:mb-3 md:rounded-lg md:border">
-        <Scrubber className="h-[5px]" />
-        <div className="flex items-center gap-2.5 px-3.5 pb-3.5 pt-2.5 md:gap-3 md:py-[11px]">
+      <div className="floating-bar pointer-events-auto relative mx-auto max-w-[720px] overflow-hidden md:rounded-lg md:border md:border-input md:bg-card md:shadow-dock">
+        <DockProgress />
+        <Scrubber className="hidden h-[5px] md:block" />
+        {/* Строка пропускает касания к DockProgress под ней — кроме кнопок. */}
+        <div className="relative flex h-full items-center gap-1.5 pe-2 ps-5 max-md:pointer-events-none max-md:[&_button]:pointer-events-auto md:gap-3 md:px-3.5 md:py-[11px]">
           <div className="hidden w-[60px] flex-none rounded bg-plate p-[3px] md:block">
             <div className="relative aspect-video overflow-hidden rounded-[2px]">
               <Image src={image} alt={title} title={title} fill sizes="60px" className="plate-img object-cover" />
             </div>
           </div>
-          <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-            <span className="truncate text-[13.5px]">{title}</span>
-            <TimeReadout className="text-[11.5px]" />
+          <div className="me-1 flex min-w-0 flex-1 flex-col gap-0.5">
+            <span className="truncate text-[13.5px] leading-tight">{title}</span>
+            <TimeReadout className="text-[11.5px] leading-tight" />
           </div>
           <SkipButton delta={-10} />
-          <PlayButton className="size-12 md:size-11" />
+          <PlayButton className="size-10 md:size-11" />
           <SkipButton delta={10} />
         </div>
       </div>
@@ -331,8 +339,73 @@ function FirstWord({ text }: { text: string }) {
   );
 }
 
+/**
+ * Прогресс мобильной пилюли: заливка фона акцентом от начала до текущей
+ * позиции. Перемотка — как у обычного ползунка: ведёте пальцем по панели
+ * вбок, позиция следует за пальцем. Жест включается только после сдвига
+ * по горизонтали, поэтому простой тап по названию ничего не перематывает,
+ * а вертикальный свайп по-прежнему прокручивает страницу (touch-action: pan-y).
+ */
+function DockProgress() {
+  const { current, duration, error, seekTo } = useStoryAudio();
+  const [scrubbing, setScrubbing] = React.useState(false);
+  const drag = React.useRef<{ id: number; x: number; y: number; active: boolean } | null>(null);
+  const pct = duration > 0 ? Math.min(100, (current / duration) * 100) : 0;
+
+  const seekAt = (el: HTMLElement, clientX: number) => {
+    const r = el.getBoundingClientRect();
+    let p = (clientX - r.left) / r.width;
+    if (getComputedStyle(el).direction === "rtl") p = 1 - p;
+    seekTo(Math.min(1, Math.max(0, p)) * duration);
+  };
+
+  const end = () => {
+    drag.current = null;
+    setScrubbing(false);
+  };
+
+  return (
+    <div
+      className="absolute inset-0 touch-pan-y select-none md:hidden"
+      onPointerDown={(e) => {
+        if (!duration || error) return;
+        drag.current = { id: e.pointerId, x: e.clientX, y: e.clientY, active: false };
+      }}
+      onPointerMove={(e) => {
+        const d = drag.current;
+        if (!d || d.id !== e.pointerId) return;
+        if (!d.active) {
+          const dx = Math.abs(e.clientX - d.x);
+          const dy = Math.abs(e.clientY - d.y);
+          if (dy > SCRUB_SLOP && dy > dx) return end();
+          if (dx < SCRUB_SLOP) return;
+          d.active = true;
+          e.currentTarget.setPointerCapture(e.pointerId);
+          setScrubbing(true);
+        }
+        seekAt(e.currentTarget, e.clientX);
+      }}
+      onPointerUp={end}
+      onPointerCancel={end}
+    >
+      <span
+        aria-hidden
+        className={cn(
+          "absolute inset-y-0 start-0 border-e-2 border-transparent",
+          scrubbing
+            ? "border-tint bg-tint/40 dark:bg-tint/45"
+            : "bg-tint/25 transition-[width] duration-200 ease-linear dark:bg-tint/30"
+        )}
+        style={{ width: `${pct}%` }}
+      />
+      {/* Для клавиатуры и скринридеров: мышью/пальцем управляет жест выше. */}
+      <SeekInput className="pointer-events-none absolute inset-0" />
+    </div>
+  );
+}
+
 function Scrubber({ className }: { className?: string }) {
-  const { current, duration, buffering, error, seekTo, labels } = useStoryAudio();
+  const { current, duration, buffering } = useStoryAudio();
   const pct = duration > 0 ? Math.min(100, (current / duration) * 100) : 0;
 
   return (
@@ -347,19 +420,28 @@ function Scrubber({ className }: { className?: string }) {
         className="absolute inset-y-0 start-0 bg-accent transition-[width] duration-200 ease-linear"
         style={{ width: `${pct}%` }}
       />
-      <input
-        type="range"
-        min={0}
-        max={duration}
-        step={1}
-        value={Math.min(current, duration)}
-        disabled={!duration || error}
-        onChange={(e) => seekTo(Number(e.currentTarget.value))}
-        aria-label={labels.seek}
-        aria-valuetext={`${formatTime(current)} / ${formatTime(duration)}`}
-        className="absolute inset-x-0 -top-2 h-[calc(100%+1rem)] w-full cursor-pointer opacity-0 disabled:cursor-default"
-      />
+      <SeekInput className="absolute inset-x-0 -top-2 h-[calc(100%+1rem)]" />
     </div>
+  );
+}
+
+/** Невидимый ползунок перемотки поверх полосы прогресса. */
+function SeekInput({ className }: { className?: string }) {
+  const { current, duration, error, seekTo, labels } = useStoryAudio();
+
+  return (
+    <input
+      type="range"
+      min={0}
+      max={duration}
+      step={1}
+      value={Math.min(current, duration)}
+      disabled={!duration || error}
+      onChange={(e) => seekTo(Number(e.currentTarget.value))}
+      aria-label={labels.seek}
+      aria-valuetext={`${formatTime(current)} / ${formatTime(duration)}`}
+      className={cn("w-full cursor-pointer opacity-0 disabled:cursor-default", className)}
+    />
   );
 }
 
