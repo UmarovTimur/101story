@@ -13,6 +13,10 @@ import { MediaBanners } from "@/components/media-banners";
 import { ResumeBanner } from "@/components/resume-banner";
 import { StoryCard } from "@/components/story-card";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { JsonLd } from "@/components/json-ld";
+import { getLanguage } from "@/lib/languages";
+import { absoluteUrl, langTag } from "@/lib/site";
+import { listPath, storyPath } from "@/lib/seo";
 
 /**
  * Список историй одного языка. Общий для маршрута /<lang>/ и для корня «/»,
@@ -39,14 +43,36 @@ export async function StoriesList({ lang }: { lang: string }) {
   const navItems = groups.map(({ key, title, short, from, to }) => ({ key, title, short, from, to }));
   const cardLabels = { done: ui.done, bookmarked: ui.bookmarked };
 
+  const url = absoluteUrl(listPath(lang));
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": url,
+    url,
+    name: ui.siteTitle,
+    description: ui.apps.text,
+    inLanguage: langTag(getLanguage(lang)!),
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: stories.length,
+      itemListElement: stories.map((s, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: s.number > 0 ? `${s.number}. ${s.title}` : s.title,
+        url: absoluteUrl(storyPath(lang, s)),
+      })),
+    },
+  };
+
   return (
     <>
+      <JsonLd data={jsonLd} />
       <StickyHeader className="border-b bg-card">
         <div className="mx-auto flex h-[52px] max-w-[1280px] items-center justify-between gap-4 px-[18px] md:h-14 md:px-12">
           <Link href={`/${lang}/`} className="relative top-0.5 flex min-w-0 items-baseline gap-3.5 rounded-md">
-            <span className="truncate font-display text-[17px] font-medium md:text-[21px]">
+            <h1 className="truncate font-display text-[17px] font-medium md:text-[21px]">
               {ui.siteTitle}
-            </span>
+            </h1>
             <span className="hidden flex-none tabular-nums text-xs text-muted-foreground sm:inline">
               {tr(ui.storyCount, { n: numbered.length })}
             </span>

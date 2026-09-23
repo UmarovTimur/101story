@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -9,6 +10,8 @@ import { eraOf } from "@/lib/eras";
 import { t, tr } from "@/lib/i18n";
 import { formatTime, pad3 } from "@/lib/format";
 import imageLoader from "@/lib/image-loader";
+import { absoluteUrl, langTag } from "@/lib/site";
+import { describe, isoDuration, languageAlternates, listPath, shareImage, socialMeta, storyPath } from "@/lib/seo";
 import { StoryPlate } from "@/components/story-plate";
 import { AudioDock, AudioPanel, StoryAudioProvider, StoryText } from "@/components/story-audio";
 import { BookmarkButton, ReadMarker } from "@/components/progress-marks";
@@ -18,6 +21,7 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import { StickyHeader } from "@/components/sticky-header";
 import { AppPromoCompact } from "@/components/app-promo";
 import { MediaBanners } from "@/components/media-banners";
+import { JsonLd } from "@/components/json-ld";
 
 const WORDS_PER_MINUTE = 160;
 
@@ -28,6 +32,31 @@ export async function generateStaticParams() {
     for (const s of stories) params.push({ lang: l.code, id: String(s.number) });
   }
   return params;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string; id: string }>;
+}): Promise<Metadata> {
+  const { lang, id } = await params;
+  const story = (await getStories(lang)).find((s) => String(s.number) === id);
+  if (!story) return {};
+  const ui = t(lang);
+  const title = `${story.number > 0 ? `${story.number}. ` : ""}${story.title} — ${ui.siteTitle}`;
+  const description = describe(story.paragraphs);
+  const url = absoluteUrl(storyPath(lang, story));
+  return {
+    title: { absolute: title },
+    description,
+    alternates: {
+      canonical: url,
+      languages: await languageAlternates((code, stories) =>
+        stories.some((s) => s.number === story.number) ? storyPath(code, story) : null
+      ),
+    },
+    ...socialMeta({ lang, url, title, description, siteName: ui.siteTitle, image: shareImage(story), type: "article" }),
+  };
 }
 
 export default async function StoryPage({
@@ -59,6 +88,48 @@ export default async function StoryPage({
   const readingMinutes = Math.max(1, Math.round(words / WORDS_PER_MINUTE));
   const fullTitle = story.number > 0 ? `${story.number}. ${story.title}` : story.title;
 
+  // Структурированные данные: поисковикам и ИИ-ассистентам проще понять, что
+  // это пересказ библейского отрывка с аудиоверсией и где он в сборнике.
+  const url = absoluteUrl(storyPath(lang, story));
+  const inLanguage = langTag(getLanguage(lang)!);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": `${url}#story`,
+        headline: story.title,
+        name: fullTitle,
+        description: describe(story.paragraphs, 300),
+        inLanguage,
+        url,
+        mainEntityOfPage: url,
+        image: shareImage(story),
+        wordCount: words,
+        timeRequired: isoDuration(readingMinutes * 60),
+        ...(story.reference && { citation: story.reference }),
+        ...(era && { articleSection: ui.eras[era.key].title }),
+        ...(story.number > 0 && { position: story.number }),
+        isPartOf: { "@type": "CreativeWorkSeries", name: ui.siteTitle, url: absoluteUrl(listPath(lang)) },
+        audio: {
+          "@type": "AudioObject",
+          name: fullTitle,
+          contentUrl: absoluteUrl(audioSrc(lang, story)),
+          encodingFormat: "audio/mpeg",
+          inLanguage,
+          ...(duration != null && { duration: isoDuration(duration) }),
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: ui.siteTitle, item: absoluteUrl(listPath(lang)) },
+          { "@type": "ListItem", position: 2, name: fullTitle, item: url },
+        ],
+      },
+    ],
+  };
+
   return (
     <StoryAudioProvider
       src={audioSrc(lang, story)}
@@ -70,6 +141,7 @@ export default async function StoryPage({
       initialDuration={duration}
       labels={ui.player}
     >
+      <JsonLd data={jsonLd} />
       <StickyHeader className="border-b bg-card">
         <div className="mx-auto flex h-[52px] max-w-[1280px] items-center justify-between gap-3 px-[18px] text-[13px] text-muted-foreground md:h-14 md:px-12 md:text-sm">
           <Link
@@ -77,7 +149,6 @@ export default async function StoryPage({
             className="inline-flex items-center gap-1.5 rounded-md py-1.5 transition-colors hover:text-foreground"
           >
             <ArrowLeft className="size-4 rtl:rotate-180" aria-hidden />
-            <span className="text-optical md:hidden">{ui.toList}</span>
             <span className="text-optical hidden md:inline">{ui.allStories}</span>
           </Link>
           <span className="truncate tabular-nums text-xs md:text-[12.5px]">
@@ -86,7 +157,7 @@ export default async function StoryPage({
           </span>
           <div className="flex flex-none items-center gap-0.5">
             {languages.length > 1 && (
-              <LanguageSwitcher languages={languages} current={lang} variant="icon" label={ui.language} />
+              <LanguageSwitcher languages={languages} current={lang} />
             )}
             <TextSizeToggle label={ui.textSize} />
             <ThemeToggle labels={ui.theme} variant="plain" />
@@ -102,7 +173,8 @@ export default async function StoryPage({
             title={story.title}
             sizes="(max-width: 768px) 100vw, 680px"
             priority
-            className="rounded-lg p-2 shadow-plate md:p-3.5"
+            className="-mx-[18px] rounded-none p-0 shadow-none md:mx-0 md:rounded-lg md:p-3.5 md:shadow-plate"
+            frameClassName="rounded-none border-0 md:rounded-[3px] md:border md:border-plate-edge"
           />
 
           <div className="flex flex-col gap-1.5 md:gap-2.5">
@@ -204,6 +276,11 @@ export default async function StoryPage({
               </Link>
             )}
           </nav>
+
+          {/* На lg+ баннер уже есть в aside — здесь показываем только на мобильных/планшетах, в самом конце. */}
+          <div className="lg:hidden">
+            <MediaBanners lang={lang} watchMoviesLabel={ui.watchMovies} />
+          </div>
         </article>
 
         {/* Отступ сверху учитывает прилипшую шапку (57px) — иначе она наезжает. */}

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { defaultLanguage } from "@/lib/languages";
 import { getStories, imageSrc } from "@/lib/stories";
@@ -5,8 +6,18 @@ import { t, tr } from "@/lib/i18n";
 import { JumpToNumber } from "@/components/jump-to-number";
 import { StoryPlate } from "@/components/story-plate";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { RootDocument, rootMetadata, rootViewport } from "@/components/root-document";
 
-export default async function NotFound() {
+export const metadata: Metadata = {
+  ...rootMetadata,
+  title: t(defaultLanguage.code).notFoundKicker,
+  robots: { index: false },
+};
+export const viewport = rootViewport;
+
+// Единая 404 для любых неизвестных адресов: корневых layout-ов несколько,
+// поэтому страница сама рисует документ целиком.
+export default async function GlobalNotFound() {
   const lang = defaultLanguage.code;
   const ui = t(lang);
   const numbered = (await getStories(lang)).filter((s) => s.number > 0);
@@ -17,7 +28,7 @@ export default async function NotFound() {
   const picks = [...numbered].sort(() => Math.random() - 0.5).slice(0, 3);
 
   return (
-    <div lang={lang} dir={defaultLanguage.dir} className="min-h-screen">
+    <RootDocument language={defaultLanguage}>
       <header className="border-b bg-card">
         <div className="mx-auto flex h-[52px] max-w-[1280px] items-center justify-between gap-4 px-[18px] md:h-14 md:px-12">
           <Link href={`/${lang}/`} className="relative top-0.5 truncate rounded-md font-display text-[17px] font-medium md:text-[21px]">
@@ -64,6 +75,6 @@ export default async function NotFound() {
           </ul>
         </div>
       </main>
-    </div>
+    </RootDocument>
   );
 }

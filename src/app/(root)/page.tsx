@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { defaultLanguage } from "@/lib/languages";
-import { t } from "@/lib/i18n";
+import { listMetadata } from "@/lib/seo";
 import { StoriesList } from "@/components/stories-page";
 
 // Корень отдаёт язык по умолчанию сразу, без редиректа: то же содержимое,
@@ -8,15 +8,10 @@ import { StoriesList } from "@/components/stories-page";
 // две страницы разными.
 const lang = defaultLanguage.code;
 
-export const metadata: Metadata = {
-  title: t(lang).siteTitle,
-  alternates: { canonical: `/${lang}/` },
-};
+export function generateMetadata(): Promise<Metadata> {
+  return listMetadata(lang);
+}
 
 export default function Home() {
-  return (
-    <div lang={lang} dir={defaultLanguage.dir} className="min-h-screen">
-      <StoriesList lang={lang} />
-    </div>
-  );
+  return <StoriesList lang={lang} />;
 }

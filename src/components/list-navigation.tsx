@@ -168,7 +168,7 @@ export function EraChips({ eras, label }: { eras: EraNavItem[]; label: string })
                 className={cn(
                   "block whitespace-nowrap rounded-full border px-3 py-[7px] transition-colors",
                   on
-                    ? "border-foreground bg-foreground text-background"
+                    ? "border-accent bg-accent text-accent-foreground"
                     : "border-input text-foreground/75"
                 )}
               >

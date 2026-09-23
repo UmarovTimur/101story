@@ -114,53 +114,6 @@
   }
 
   /*
-   * Серый каркас на время загрузки шрифтов — чтобы текст не показался
-   * сначала запасным шрифтом, а потом не перескочил на основной.
-   * По умолчанию каркас скрыт, а контент виден: без JS ничего не прячется.
-   */
-  .page-skeleton {
-    display: none;
-  }
-  [data-loading] .page-skeleton {
-    display: block;
-    position: fixed;
-    inset: 0;
-    z-index: 60;
-    overflow: hidden;
-    background: hsl(var(--background));
-    /* Если шрифты уже в кэше, показывать каркас незачем: он появляется
-       только через 140 мс, и при быстрой загрузке его просто не видно. */
-    opacity: 0;
-    animation: skeleton-appear 1ms linear 140ms forwards;
-  }
-  @keyframes skeleton-appear {
-    to {
-      opacity: 1;
-    }
-  }
-  [data-loading] body > *:not(.page-skeleton) {
-    visibility: hidden;
-  }
-  .skeleton-block {
-    background: hsl(var(--muted));
-    animation: skeleton-pulse 1.4s ease-in-out infinite;
-  }
-  @keyframes skeleton-pulse {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.55;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .skeleton-block {
-      animation: none;
-    }
-  }
-
-  /*
    * Баннер-ссылка в сайдбаре: тёмный градиент и расходящиеся лучи.
    * Цвет отличается от промо приложения — так видно, что ведёт на другой сайт.
    */

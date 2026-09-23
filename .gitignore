@@ -26,9 +26,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-# ВНИМАНИЕ: аудио (16+ ГБ) лежит в public/audio — не храним в git.
-# См. README (раздел про Git LFS), если понадобится трекать медиа.
+# Аудио (~5 ГБ, исходники 16 ГБ) в git не храним — см. README.
 /public/audio/
+/audio-original/
 
-# WebP генерируются из public/images (npm run images)
+# WebP генерируются из assets/images (npm run images)
 /public/img/

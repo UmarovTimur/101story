@@ -12,7 +12,7 @@
  * Ссылки: для русского, азербайджанского и узбекского — отдельные ресурсы
  * (bible.by, incilaz.com, kitobook.com). Для 19 остальных — YouVersion
  * (bible.com/languages/<код>), у него есть страница на каждый язык. Для
- * шугнанского (gv) на YouVersion перевода нет — ссылка ведёт на Институт
+ * шугнанского (sgh) на YouVersion перевода нет — ссылка ведёт на Институт
  * перевода Библии (ibtrussia.org), который его публикует.
  */
 export interface SideBanner {
@@ -30,7 +30,7 @@ export const sideBanners: Record<string, SideBanner> = {
   az: { href: "https://incilaz.com", title: "Müqəddəs Kitab", subtitle: "incilaz.com" },
   kk: { href: bv("kaz"), title: "Киелі Жазба", subtitle: YOUVERSION },
   ky: { href: bv("kir"), title: "Ыйык Китеп", subtitle: YOUVERSION },
-  hz: { href: bv("tgk"), title: "Библия", subtitle: YOUVERSION },
+  tg: { href: bv("tgk"), title: "Библия", subtitle: YOUVERSION },
   uk: { href: bv("ukr"), title: "Біблія", subtitle: YOUVERSION },
   hy: { href: bv("hye"), title: "Աստվածաշունչ", subtitle: YOUVERSION },
   ka: { href: bv("kat"), title: "ბიბლია", subtitle: YOUVERSION },
@@ -39,15 +39,15 @@ export const sideBanners: Record<string, SideBanner> = {
   es: { href: bv("spa"), title: "Biblia", subtitle: YOUVERSION },
   fa: { href: bv("pes"), title: "کتاب مقدس", subtitle: YOUVERSION },
   ro: { href: bv("ron"), title: "Biblia", subtitle: YOUVERSION },
-  ms: { href: bv("kmr"), title: "Pirtûka Pîroz", subtitle: YOUVERSION },
+  kmr: { href: bv("kmr"), title: "Pirtûka Pîroz", subtitle: YOUVERSION },
   mn: { href: bv("khk"), title: "Библи", subtitle: YOUVERSION },
-  eu: { href: bv("sah"), title: "Библия", subtitle: YOUVERSION },
-  ty: { href: bv("tyv"), title: "Библия", subtitle: YOUVERSION },
-  ba: { href: bv("uig_cyr"), title: "Муқәддәс Китап", subtitle: YOUVERSION },
-  kr: { href: bv("xal"), title: "Библь", subtitle: YOUVERSION },
-  tl: { href: bv("kaa"), title: "Мухаддес Китап", subtitle: YOUVERSION },
-  gv: { href: "https://ibtrussia.org/Shugni/bible", title: "Китоби Муқаддас", subtitle: "ibtrussia.org" },
-  gl: { href: bv("pdt"), title: "Bibel", subtitle: YOUVERSION },
+  sah: { href: bv("sah"), title: "Библия", subtitle: YOUVERSION },
+  tyv: { href: bv("tyv"), title: "Библия", subtitle: YOUVERSION },
+  ug: { href: bv("uig_cyr"), title: "Муқәддәс Китап", subtitle: YOUVERSION },
+  xal: { href: bv("xal"), title: "Библь", subtitle: YOUVERSION },
+  kaa: { href: bv("kaa"), title: "Мухаддес Китап", subtitle: YOUVERSION },
+  sgh: { href: "https://ibtrussia.org/Shugni/bible", title: "Китоби Муқаддас", subtitle: "ibtrussia.org" },
+  pdt: { href: bv("pdt"), title: "Bibel", subtitle: YOUVERSION },
 };
 
 export function getSideBanner(lang: string): SideBanner | undefined {

@@ -2,21 +2,19 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { availableLanguages } from "@/lib/stories";
 import { getLanguage } from "@/lib/languages";
-import { t } from "@/lib/i18n";
+import { RootDocument, rootMetadata, rootViewport } from "@/components/root-document";
+
+export const metadata: Metadata = rootMetadata;
+export const viewport = rootViewport;
+
+// Других языков, кроме собранных, нет: неизвестный /xx/ сразу уходит в 404.
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return availableLanguages().map((l) => ({ lang: l.code }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}): Promise<Metadata> {
-  const { lang } = await params;
-  return { title: t(lang).siteTitle };
-}
-
+// Корневой layout языка: у каждой языковой версии свой <html lang dir>.
 // Шапки у списка и у страницы истории разные, поэтому их рисуют сами страницы.
 export default async function LangLayout({
   children,
@@ -29,9 +27,5 @@ export default async function LangLayout({
   const language = getLanguage(lang);
   if (!language) notFound();
 
-  return (
-    <div lang={language.code} dir={language.dir} className="min-h-screen">
-      {children}
-    </div>
-  );
+  return <RootDocument language={language}>{children}</RootDocument>;
 }

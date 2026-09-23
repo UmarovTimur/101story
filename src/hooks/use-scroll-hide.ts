@@ -4,9 +4,12 @@ import * as React from "react";
 
 /**
  * Скрыть/показать панель (шапку, плеер) в такт скроллу: вниз — прячем,
- * вверх — возвращаем. У самого верха страницы всегда видна. Пока панель
- * скрыта, любой клик по странице тоже возвращает её — чтобы не потерять
- * доступ к управлению.
+ * вверх — возвращаем. У самого верха страницы всегда видна.
+ *
+ * Раньше любой клик по странице тоже возвращал панель — из-за этого на
+ * мобильных она выскакивала обратно при каждом тапе по тексту истории,
+ * что сводило на нет саму идею скрытия при чтении. Возврат — только
+ * скроллом вверх, это и предсказуемо, и не мешает читать.
  */
 export function useScrollHide({ threshold = 8, topOffset = 64 } = {}) {
   const [hidden, setHidden] = React.useState(false);
@@ -40,14 +43,6 @@ export function useScrollHide({ threshold = 8, topOffset = 64 } = {}) {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [threshold, topOffset]);
-
-  // Пока скрыта — любой клик по странице возвращает панель обратно.
-  React.useEffect(() => {
-    if (!hidden) return;
-    const onPointerDown = () => setHidden(false);
-    window.addEventListener("pointerdown", onPointerDown);
-    return () => window.removeEventListener("pointerdown", onPointerDown);
-  }, [hidden]);
 
   return hidden;
 }

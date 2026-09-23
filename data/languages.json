@@ -4,88 +4,102 @@
     "name": "Русский",
     "englishName": "Russian",
     "dir": "ltr",
-    "default": true
+    "default": true,
+    "flag": "🇷🇺"
   },
   {
     "code": "uz",
     "name": "O‘zbekcha",
     "englishName": "Uzbek",
-    "dir": "ltr"
+    "dir": "ltr",
+    "flag": "🇺🇿"
   },
   {
     "code": "az",
     "name": "Azərbaycan",
     "englishName": "Azerbaijani",
-    "dir": "ltr"
+    "dir": "ltr",
+    "flag": "🇦🇿"
   },
   {
     "code": "kk",
     "name": "Қазақша",
     "englishName": "Kazakh",
-    "dir": "ltr"
+    "dir": "ltr",
+    "flag": "🇰🇿"
   },
   {
     "code": "ky",
     "name": "Кыргызча",
     "englishName": "Kyrgyz",
-    "dir": "ltr"
+    "dir": "ltr",
+    "flag": "🇰🇬"
   },
   {
-    "code": "hz",
+    "code": "tg",
     "name": "Тоҷикӣ",
     "englishName": "Tajik",
-    "dir": "ltr"
+    "dir": "ltr",
+    "flag": "🇹🇯"
   },
   {
     "code": "uk",
     "name": "Українська",
     "englishName": "Ukrainian",
-    "dir": "ltr"
+    "dir": "ltr",
+    "flag": "🇺🇦"
   },
   {
     "code": "hy",
     "name": "Հայերեն",
     "englishName": "Armenian",
-    "dir": "ltr"
+    "dir": "ltr",
+    "flag": "🇦🇲"
   },
   {
     "code": "ka",
     "name": "ქართული",
     "englishName": "Georgian",
-    "dir": "ltr"
+    "dir": "ltr",
+    "flag": "🇬🇪"
   },
   {
     "code": "tr",
     "name": "Türkçe",
     "englishName": "Turkish",
-    "dir": "ltr"
+    "dir": "ltr",
+    "flag": "🇹🇷"
   },
   {
     "code": "de",
     "name": "Deutsch",
     "englishName": "German",
-    "dir": "ltr"
+    "dir": "ltr",
+    "flag": "🇩🇪"
   },
   {
     "code": "es",
     "name": "Español",
     "englishName": "Spanish",
-    "dir": "ltr"
+    "dir": "ltr",
+    "flag": "🇪🇸"
   },
   {
     "code": "fa",
     "name": "فارسی",
     "englishName": "Persian",
-    "dir": "rtl"
+    "dir": "rtl",
+    "flag": "🇮🇷"
   },
   {
     "code": "ro",
     "name": "Română",
     "englishName": "Romanian",
-    "dir": "ltr"
+    "dir": "ltr",
+    "flag": "🇷🇴"
   },
   {
-    "code": "ms",
+    "code": "kmr",
     "name": "Kurdî",
     "englishName": "Kurdish",
     "dir": "ltr"
@@ -94,46 +108,48 @@
     "code": "mn",
     "name": "Монгол хэл",
     "englishName": "Mongolian",
-    "dir": "ltr"
+    "dir": "ltr",
+    "flag": "🇲🇳"
   },
   {
-    "code": "eu",
+    "code": "sah",
     "name": "Саха тыла",
     "englishName": "Yakut",
     "dir": "ltr"
   },
   {
-    "code": "ty",
+    "code": "tyv",
     "name": "Тыва дыл",
     "englishName": "Tuvan",
     "dir": "ltr"
   },
   {
-    "code": "ba",
+    "code": "ug",
+    "hreflang": "ug-Cyrl",
     "name": "Уйғур тили",
     "englishName": "Uyghur",
     "dir": "ltr"
   },
   {
-    "code": "kr",
+    "code": "xal",
     "name": "Хальмг келн",
     "englishName": "Kalmyk",
     "dir": "ltr"
   },
   {
-    "code": "tl",
+    "code": "kaa",
     "name": "Қарақалпақ тили",
     "englishName": "Karakalpak",
     "dir": "ltr"
   },
   {
-    "code": "gv",
+    "code": "sgh",
     "name": "Шугнон-Помир",
     "englishName": "Shughni",
     "dir": "ltr"
   },
   {
-    "code": "gl",
+    "code": "pdt",
     "name": "Plautdietsch",
     "englishName": "Plautdietsch",
     "dir": "ltr"

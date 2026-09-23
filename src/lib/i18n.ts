@@ -482,7 +482,7 @@ dict.ky = {
     "Аңгемелер 1ден {max}ге чейин номерленген. Номерин киргизиңиз же тизмеден тандаңыз.",
 };
 
-dict.hz = {
+dict.tg = {
   siteTitle: "Ҳикояҳои Китоби Муқаддас",
   storyCount: "{n} ҳикоя",
   preface: "Муқаддима",
@@ -1239,7 +1239,7 @@ dict.ro = {
     "Poveștile sunt numerotate de la 1 la {max}. Introduceți numărul sau alegeți din listă.",
 };
 
-dict.ms = {
+dict.kmr = {
   siteTitle: "Çîrokên Pirtûka Pîroz",
   storyCount: "{n} çîrok",
   preface: "Destpêk",
@@ -1407,7 +1407,7 @@ dict.mn = {
     "Түүхүүд 1-ээс {max} хүртэл дугаарлагдсан байна. Дугаараа оруулах эсвэл жагсаалтаас сонгоно уу.",
 };
 
-dict.eu = {
+dict.sah = {
   siteTitle: "Библия кэпсээннэрэ",
   storyCount: "{n} кэпсээн",
   preface: "Киирии тыла",
@@ -1491,7 +1491,7 @@ dict.eu = {
     "Кэпсээннэр 1-тэн {max}-ка диэри нүөмэрдэммиттэр. Нүөмэри киллэр эбэтэр испииһэктэн талын.",
 };
 
-dict.ty = {
+dict.tyv = {
   siteTitle: "Библия тоожулары",
   storyCount: "{n} тоожу",
   preface: "Киирилде сөс",
@@ -1575,7 +1575,7 @@ dict.ty = {
     "Тоожулар 1-ден {max}-ка чедир дугаарлаттынган. Дугаарны киир азы даңзыдан шилий.",
 };
 
-dict.ba = {
+dict.ug = {
   siteTitle: "Муқәддәс Китап һекайилири",
   storyCount: "{n} һекайә",
   preface: "Кириш сөз",
@@ -1659,7 +1659,7 @@ dict.ba = {
     "Һекайиләр 1дин {max}гичә рәқимләнгән. Рәқимини киргүзүң яки тизимликтин таллаң.",
 };
 
-dict.kr = {
+dict.xal = {
   siteTitle: "Библин тууҗс",
   storyCount: "{n} тууҗ",
   preface: "Өмн үг",
@@ -1743,7 +1743,7 @@ dict.kr = {
     "Тууҗс 1-әс {max}-д күртл тоолгдсн. Тооһинь бич эсвэл җигсәлтәс сонһ.",
 };
 
-dict.tl = {
+dict.kaa = {
   siteTitle: "Мухаддес Китап хикаялары",
   storyCount: "{n} хикая",
   preface: "Кириспе",
@@ -1827,7 +1827,7 @@ dict.tl = {
     "Хикаялар 1-ден {max}-ге шекем номерленген. Номерди киргизиң яки дизимнен таңлаң.",
 };
 
-dict.gv = {
+dict.sgh = {
   siteTitle: "Ҳикоятҳои Китоби Муқаддас",
   storyCount: "{n} ҳикоят",
   preface: "Дебоча",
@@ -1911,7 +1911,7 @@ dict.gv = {
     "Ҳикоятҳо аз 1 то {max} рақамгузорӣ шудаанд. Рақамро нависед ё аз рӯйхат интихоб кунед.",
 };
 
-dict.gl = {
+dict.pdt = {
   siteTitle: "Bibelgeschichte",
   storyCount: "{n} Geschichte",
   preface: "Verwuat",

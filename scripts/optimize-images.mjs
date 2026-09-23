@@ -1,4 +1,5 @@
-// Нарезает public/images/*.jpg в WebP нужных ширин: public/img/<ширина>/<имя>.webp.
+// Нарезает assets/images/*.jpg в WebP нужных ширин: public/img/<ширина>/<имя>.webp.
+// Исходники лежат вне public, чтобы 50 МБ JPEG не попадали в out/ — сайт отдаёт только WebP.
 // Ширины — те же, что у next/image (src/lib/image-widths.json). Картинки не увеличиваются:
 // если оригинал уже исходной ширины, файл просто сохраняется в его размере.
 // Уже готовые файлы, которые новее оригинала, пропускаются.
@@ -7,7 +8,7 @@ import path from "node:path";
 import sharp from "sharp";
 
 const root = path.resolve(import.meta.dirname, "..");
-const srcDir = path.join(root, "public/images");
+const srcDir = path.join(root, "assets/images");
 const outDir = path.join(root, "public/img");
 const { imageSizes, deviceSizes } = JSON.parse(
   await readFile(path.join(root, "src/lib/image-widths.json"), "utf8")

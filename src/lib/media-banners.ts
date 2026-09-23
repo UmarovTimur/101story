@@ -1,26 +1,35 @@
 /**
  * Ссылки для баннеров YouTube и «фильмы» в сайдбаре — по языку, как и
- * sideBanners в side-banner.ts.
+ * sideBanners в side-banner.ts. Для языка без записи в карте баннер просто
+ * не показывается (см. MediaBanners в components/media-banners.tsx).
  *
- * TODO(you): значения ниже — заглушки. Замените href на реальные каналы
- * YouTube и сайты с фильмами для каждого языка (или на один и тот же
- * адрес для всех, если отдельные версии по языкам не нужны).
+ * TODO(you): заполните реальными каналами YouTube по мере появления —
+ * сейчас карта пустая, поэтому баннер YouTube скрыт для всех языков.
  */
 
-const TODO_YOUTUBE = "https://www.youtube.com/@REPLACE_ME";
-const TODO_MOVIES = "https://example.com/movies";
-
-const LANGS = [
-  "uz", "ru", "az", "kk", "ky", "hz", "uk", "hy", "ka", "tr", "de", "es",
-  "fa", "ro", "ms", "mn", "eu", "ty", "ba", "kr", "tl", "gv", "gl",
-];
+const YOUTUBE_LANG_PATHS: Record<string, string> = {
+  uz: "https://www.youtube.com/@muqaddaskitob1",
+};
 
 export const youtubeBanners: Record<string, { href: string }> = Object.fromEntries(
-  LANGS.map((code) => [code, { href: `${TODO_YOUTUBE}?lang=${code}` }])
+  Object.entries(YOUTUBE_LANG_PATHS).map(([code, href]) => [code, { href }])
 );
 
+// vidkino.com поддерживает не все LANGS — для языков без реальной ссылки
+// баннер «фильмы» просто не показывается (см. getMovieBanner).
+const VIDKINO_LANG_PATHS: Record<string, string> = {
+  ru: "ru",
+  uz: "uz",
+  az: "az",
+  kk: "kz", // на vidkino казахский контент отдаётся по пути /kz
+  ky: "kg", // на vidkino киргизский контент отдаётся по пути /kg
+};
+
 export const movieBanners: Record<string, { href: string }> = Object.fromEntries(
-  LANGS.map((code) => [code, { href: `${TODO_MOVIES}/${code}` }])
+  Object.entries(VIDKINO_LANG_PATHS).map(([code, path]) => [
+    code,
+    { href: `https://vidkino.com/${path}` },
+  ])
 );
 
 export function getYoutubeBanner(lang: string) {
