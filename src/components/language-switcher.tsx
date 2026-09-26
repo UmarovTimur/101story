@@ -38,13 +38,19 @@ export function LanguageSwitcher({
   current,
   variant = "full",
   label,
+  className,
 }: {
   languages: Language[];
   current: string;
-  /** "full" — кнопка с названием языка (список историй), "icon" — компактная круглая кнопка (страница истории). */
-  variant?: "full" | "icon";
+  /**
+   * "full" — кнопка с флагом и названием языка (подвал), "icon" — компактная кнопка-иконка,
+   * "header" — в шапке: на мобилках круглая иконка, с md — кнопка с флагом и названием.
+   */
+  variant?: "full" | "icon" | "header";
   /** aria-label для компактного варианта. */
   label?: string;
+  /** Классы кнопки (для компактного варианта — чтобы совпасть с соседними кнопками шапки). */
+  className?: string;
 }) {
   const [open, setOpen] = React.useState(false);
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -94,30 +100,45 @@ export function LanguageSwitcher({
     return "/" + parts.join("/") + "/";
   };
 
+  const currentLanguage = languages.find((l) => l.code === current);
+
   if (languages.length < 2) {
-    if (variant === "icon") return null;
+    if (variant !== "full") return null;
     return (
       <span className="text-sm text-muted-foreground">
-        {languages.find((l) => l.code === current)?.name}
+        {currentLanguage?.name}
       </span>
     );
   }
 
   return (
     <div ref={containerRef} className="relative">
-      {variant === "icon" ? (
+      {(variant === "icon" || variant === "header") && (
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-label={label}
-          className="grid size-9 place-items-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          title={label}
+          aria-expanded={open}
+          className={cn(
+            "grid size-9 place-items-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
+            variant === "header" && "size-10 rounded-full border border-input md:hidden",
+            className
+          )}
         >
           <LanguagesIcon className="size-4" aria-hidden />
         </button>
-      ) : (
-        <Button variant="outline" size="sm" className="rounded-full" onClick={() => setOpen((v) => !v)}>
-          <LanguageFlag code={current} flag={languages.find((l) => l.code === current)?.flag} />
-          {languages.find((l) => l.code === current)?.name}
+      )}
+      {(variant === "full" || variant === "header") && (
+        <Button
+          variant="outline"
+          size="sm"
+          className={cn("rounded-full", variant === "header" && "hidden h-10 px-4 md:inline-flex")}
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+        >
+          <LanguageFlag code={current} flag={currentLanguage?.flag} />
+          {currentLanguage?.name}
         </Button>
       )}
       {open && (

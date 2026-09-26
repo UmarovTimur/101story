@@ -1,19 +1,15 @@
 import type { Language } from "./types";
 
+// Боевой домен сайта.
+export const PRODUCTION_URL = "https://101story.org";
+
 // Канонический домен сайта (без завершающего /): canonical, hreflang, sitemap,
-// robots, Open Graph и JSON-LD строятся от него. Боевую сборку без SITE_URL
-// не выпускаем: иначе все ссылки для поисковиков тихо укажут на чужой домен.
+// robots, Open Graph и JSON-LD строятся от него. По умолчанию в сборке —
+// PRODUCTION_URL, в dev — localhost; SITE_URL переопределяет оба варианта.
 function resolveSiteUrl(): string {
   const raw = process.env.SITE_URL?.trim();
   if (raw) return raw.replace(/\/+$/, "");
-  if (process.env.NODE_ENV === "production") {
-    throw new Error(
-      "SITE_URL не задан. Укажите домен сайта, например:\n" +
-        "  SITE_URL=https://example.org npm run build\n" +
-        "Для локальной проверки подойдёт SITE_URL=http://localhost:3000."
-    );
-  }
-  return "http://localhost:3000";
+  return process.env.NODE_ENV === "production" ? PRODUCTION_URL : "http://localhost:3000";
 }
 
 export const siteUrl = resolveSiteUrl();

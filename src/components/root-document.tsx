@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Bitter, Comfortaa, Nunito } from "next/font/google";
 import type { Language } from "@/lib/types";
 import { siteUrl, langTag } from "@/lib/site";
+import { PrefsSync } from "@/components/prefs-sync";
 import "@/app/globals.css";
 
 // Корневых layout-ов несколько (по языку, корень «/», 404), чтобы у каждой
@@ -72,6 +73,7 @@ export function RootDocument({ language, children }: { language: Language; child
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>
       <body className={`${sans.variable} ${serif.variable} ${display.variable} min-h-screen font-sans antialiased`}>
+        <PrefsSync />
         {children}
       </body>
     </html>

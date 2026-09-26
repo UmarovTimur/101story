@@ -45,15 +45,15 @@ src/
 ```bash
 npm install
 npm run dev                                   # разработка -> http://localhost:3000
-SITE_URL=https://домен npm run build          # статическая сборка -> ./out
+npm run build                                 # статическая сборка для https://101story.org -> ./out
 SITE_URL=http://localhost:3000 npm run build  # сборка для локальной проверки
 npm run serve                                 # отдать собранный ./out
 npm run audio                                 # пережать новое аудио в 64 kbps моно
 npm run images                                # нарезать WebP (запускается перед build сам)
 ```
 
-`SITE_URL` обязателен для `build`: от него строятся canonical, hreflang, sitemap,
-Open Graph и JSON-LD. Без него сборка останавливается с ошибкой.
+Домен сайта — `https://101story.org` (`src/lib/site.ts`): от него строятся canonical,
+hreflang, sitemap, robots, Open Graph и JSON-LD. Переменная `SITE_URL` переопределяет его.
 
 ## Как добавить новый язык
 

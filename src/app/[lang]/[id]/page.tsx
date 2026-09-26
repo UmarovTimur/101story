@@ -17,6 +17,7 @@ import { AudioDock, AudioPanel, StoryAudioProvider, StoryText } from "@/componen
 import { BookmarkButton, ReadMarker } from "@/components/progress-marks";
 import { TextSizeToggle } from "@/components/text-size-toggle";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { StickyHeader } from "@/components/sticky-header";
 import { AppPromoCompact } from "@/components/app-promo";
 import { MediaBanners } from "@/components/media-banners";
@@ -143,13 +144,14 @@ export default async function StoryPage({
     >
       <JsonLd data={jsonLd} />
       <StickyHeader>
-        <div className="mx-auto flex h-full max-w-[1280px] items-center justify-between gap-3 ps-5 pe-2.5 text-[13px] text-muted-foreground md:h-14 md:px-12 md:text-sm">
+        <div className="mx-auto flex h-full max-w-[1280px] items-center justify-between gap-3 px-2.5 text-[13px] text-muted-foreground md:h-14 md:px-12 md:text-sm">
           <Link
             href={`/${lang}/`}
-            className="inline-flex items-center gap-1.5 rounded-md py-1.5 transition-colors hover:text-foreground"
+            aria-label={ui.allStories}
+            title={ui.allStories}
+            className="grid size-10 flex-none place-items-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
             <ArrowLeft className="size-4 rtl:rotate-180" aria-hidden />
-            <span className="text-optical hidden md:inline">{ui.allStories}</span>
           </Link>
           <div className="flex min-w-0 flex-1 items-center justify-end">
             <StoryNumberJump
@@ -162,6 +164,7 @@ export default async function StoryPage({
             />
           </div>
           <div className="flex flex-none items-center gap-2">
+            <LanguageSwitcher languages={languages} current={lang} variant="header" label={ui.language} />
             <TextSizeToggle label={ui.textSize} className="size-10 rounded-full border border-input px-0" />
             <ThemeToggle labels={ui.theme} variant="icon" className="size-10" />
           </div>

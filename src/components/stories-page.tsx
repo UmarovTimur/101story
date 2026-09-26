@@ -12,6 +12,7 @@ import { MediaBanners } from "@/components/media-banners";
 import { ResumeBanner } from "@/components/resume-banner";
 import { StoryCard } from "@/components/story-card";
 import { Footer } from "@/components/footer";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { JsonLd } from "@/components/json-ld";
 import { getLanguage } from "@/lib/languages";
@@ -77,7 +78,10 @@ export async function StoriesList({ lang }: { lang: string }) {
               {tr(ui.storyCount, { n: numbered.length })}
             </span>
           </Link>
-          <ThemeToggle labels={ui.theme} variant="icon" className="size-10 flex-none" />
+          <div className="flex flex-none items-center gap-2">
+            <LanguageSwitcher languages={languages} current={lang} variant="header" label={ui.language} />
+            <ThemeToggle labels={ui.theme} variant="icon" className="size-10" />
+          </div>
         </div>
       </StickyHeader>
 
@@ -168,7 +172,12 @@ export async function StoriesList({ lang }: { lang: string }) {
         </main>
       </div>
 
-      <Footer languages={languages} current={lang} />
+      {/* На мобилках снизу плавает лента эпох — оставляем под ней место, чтобы не закрывала подвал. */}
+      <Footer
+        languages={languages}
+        current={lang}
+        className="pb-[calc(var(--bar-h)+max(var(--bar-gap),env(safe-area-inset-bottom))+0.5rem)] md:pb-0"
+      />
     </>
   );
 }
