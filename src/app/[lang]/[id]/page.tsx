@@ -227,7 +227,7 @@ export default async function StoryPage({
 
           {/* На узком экране карточки в одну колонку: в двух на 390px заголовку
               остаётся ~75px и он ломается в столбик вплотную к картинке. */}
-          <nav aria-label={`${ui.previous} / ${ui.next}`} className="grid gap-3 sm:grid-cols-2 md:gap-4">
+          <nav data-nosnippet aria-label={`${ui.previous} / ${ui.next}`} className="grid gap-3 sm:grid-cols-2 md:gap-4">
             {prev ? (
               <Link
                 href={`/${lang}/${prev.number}/`}
@@ -283,13 +283,13 @@ export default async function StoryPage({
           </nav>
 
           {/* На lg+ баннер уже есть в aside — здесь показываем только на мобильных/планшетах, в самом конце. */}
-          <div className="lg:hidden">
+          <div data-nosnippet className="lg:hidden">
             <MediaBanners lang={lang} watchMoviesLabel={ui.watchMovies} />
           </div>
         </article>
 
         {/* Отступ сверху учитывает прилипшую шапку (57px) — иначе она наезжает. */}
-        <aside className="sticky top-[73px] hidden flex-col gap-[22px] self-start text-[13.5px] text-muted-foreground lg:flex">
+        <aside data-nosnippet className="sticky top-[73px] hidden flex-col gap-[22px] self-start text-[13.5px] text-muted-foreground lg:flex">
           {nearby.length > 0 && (
             <nav aria-labelledby="nearby-title" className="flex flex-col gap-2 border-s-2 ps-3.5">
               <span id="nearby-title" className="text-[11px] uppercase tracking-[.16em]">

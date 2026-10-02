@@ -17,6 +17,7 @@ export function StickyHeader({ children }: { children: React.ReactNode }) {
 
   return (
     <header
+      data-nosnippet
       className={cn(
         "pointer-events-none sticky top-0 z-header px-[--bar-gap-x] pt-[max(var(--bar-gap),env(safe-area-inset-top))] transition-transform duration-200 md:p-0",
         // С запасом на тень — иначе при скрытии её край остаётся у верха экрана.

@@ -32,6 +32,16 @@ export const movieBanners: Record<string, { href: string }> = Object.fromEntries
   ])
 );
 
+// Раздел «Книги» на сайте Библии — пока только для азербайджанского.
+// label — слово «Книги» на языке страницы.
+export const bookBanners: Record<string, { href: string; label: string }> = {
+  az: { href: "https://incilaz.com/books/", label: "Kitablar" },
+};
+
+export function getBooksBanner(lang: string) {
+  return bookBanners[lang];
+}
+
 export function getYoutubeBanner(lang: string) {
   return youtubeBanners[lang];
 }

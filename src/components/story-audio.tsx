@@ -262,7 +262,7 @@ export function AudioPanel() {
   }, [setDocked]);
 
   return (
-    <div ref={ref} className="hidden overflow-hidden rounded-b-lg border border-t-0 bg-card md:block">
+    <div ref={ref} data-nosnippet className="hidden overflow-hidden rounded-b-lg border border-t-0 bg-card md:block">
       <Scrubber className="h-1.5" />
       <div className="flex items-center gap-3.5 px-[18px] py-3.5">
         <PlayButton className="size-12" />
@@ -288,6 +288,7 @@ export function AudioDock({ title, image }: { title: string; image: string }) {
     <div
       role="region"
       aria-label={title}
+      data-nosnippet
       className={cn(
         "pointer-events-none fixed inset-x-0 bottom-0 z-dock px-[--bar-gap-x] pb-[max(var(--bar-gap),env(safe-area-inset-bottom))] transition-transform duration-200 animate-in fade-in slide-in-from-bottom-4 md:px-0 md:pb-3",
         hidden ? "translate-y-full" : "translate-y-0",

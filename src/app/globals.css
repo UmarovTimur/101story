@@ -234,6 +234,15 @@
   .dark .media-banner--youtube {
     background: linear-gradient(155deg, #3a0d0d 0%, #6b1414 50%, #2c0a0a 100%);
   }
+  /* «Книги» — тот же градиент, что у промо приложения (.app-promo) */
+  .media-banner--books {
+    background: linear-gradient(180deg, #fde4d6 0%, #fbc79c 48%, #f08a62 78%, #d9503f 100%);
+    color: hsl(357 71% 24%);
+  }
+  .dark .media-banner--books {
+    background: linear-gradient(180deg, #3b1d17 0%, #5e2419 50%, #86291f 80%, #a8322a 100%);
+    color: hsl(24 80% 90%);
+  }
   .media-banner--movies {
     background: linear-gradient(155deg, #12253d 0%, #1c3f63 50%, #0f2036 100%);
     color: #eaf2fb;
